@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tetris</title>
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+<div id="main">
+    <div id="tip">
+        <br>&nbsp用时：0:0:0<br><br>
+        &nbsp分数:0<br><br>
+        &nbsp消行: 0<br><br>
+        &nbsp等级:新手
+    </div>
+    <button id="btn1">开始</button>
+    <button id="btn2">暂停</button>
+    <!--<div id="tip2"></div>-->
+    <table id="mytable"></table>
+</div>
+
+<audio src="images/bgm.mp3" autoplay></audio>
+<audio src="images/drop.wav" id="dropmusic"></audio>
+
+<script src="js/Game.js"></script>
+<script src="js/Block.js"></script>
+<script src="js/Map.js"></script>
+<script>
+    var game = new Game('mytable');
+</script>
+</body>
+</html>

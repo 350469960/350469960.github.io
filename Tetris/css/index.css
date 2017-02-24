@@ -1,0 +1,79 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+table,tr,td{
+    border: 1px solid #000;
+    border-collapse:collapse;
+}
+#main{
+    width: 421px;
+    margin: 0 auto;
+    background: #f60;
+    overflow: hidden;
+    position: relative;
+}
+#mytable{
+    float: right;
+    margin: 5px;
+}
+
+td{
+    width: 24px;
+    height: 24px;
+    font-size: 10px;
+    color: #333;
+    background: #212121;
+}
+td.I{
+    background: url(../images/0.jpg);
+}
+td.T{
+    background: url(../images/1.jpg);
+}
+td.L{
+    background: url(../images/2.jpg);
+}
+td.J{
+    background: url(../images/3.jpg);
+}
+td.S{
+    background: url(../images/4.jpg);
+}
+td.Z{
+    background: url(../images/5.jpg);
+}
+td.O{
+    background: url(../images/6.jpg);
+}
+td.X{
+    background: url(../images/6.jpg);
+}
+#tip{
+    float: left;
+    width: 100px;
+    height: 500px;
+    background: #f09;
+    margin: 5px;
+    line-height: 100%;
+    font-size: 12px;
+    color: green;
+}
+#tip2{
+    position: absolute;
+    left: 500px;
+    top: 0px;
+    font-size: 20px;
+    font-family:"Consolas";
+
+}
+button{
+    width: 75px;
+    height: 30px;
+    position: absolute;
+    bottom: 100px;
+    left: 15px;
+}
+#btn1{
+    bottom: 140px;
+}
