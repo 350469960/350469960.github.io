@@ -1,0 +1,70 @@
+@charset "utf-8";
+/* CSS Document */
+
+* {padding: 0;margin: 0;border: 0;list-style: none;}
+ 
+body {font-size: 14px;font-family:"微软雅黑";
+    width: 100%;
+    height: 100%;
+    }
+
+a {text-decoration:none;}
+#main{
+    background: url(../images/bg4.jpg) no-repeat center top;
+    background-size:cover;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+}
+.icon{
+    width: 150px;
+    height: 150px;
+    border: 5px solid rgba(255,235,0,0.3);
+    border-radius: 25px;
+    display: inline-block;
+    position: absolute;
+    top:20px;
+}
+span:nth-child(1){
+    top: 30px;
+    left: 20px;
+    background: url(../images/snake.jpg);
+    background-size:contain;
+}
+span:nth-child(2){
+    top: 240px;
+    left: 20px;
+    background: url(../images/tetris.jpg);
+    background-size:contain;
+}
+span:nth-child(3){
+    top: 450px;
+    left: 20px;
+}
+span:nth-child(4){
+    top: 30px;
+    left: 220px;
+}
+span:nth-child(5){
+    top: 240px;
+    left: 220px;
+}
+span:nth-child(6){
+    top: 450px;
+    left: 220px;
+}
+.icon a{
+    width: 100%;
+    display: block;
+    height: 100%;
+    font-size: 20px;
+    color: lawngreen;
+    line-height: 150px;
+    text-align: center;
+    font-weight: bold;
+}
+
+
+
+
+
