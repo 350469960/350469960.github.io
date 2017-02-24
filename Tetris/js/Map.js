@@ -70,7 +70,7 @@
     Map.prototype.integrate = function (row, col, blockMatrix, typeName) {
         for (var i = 0; i < 4; i++) {
             for (var j = 0; j < 4; j++) {
-                console.log(borunqing(blockMatrix, i, j) == 1 && (this.matrix[row + i] = changeString(this.matrix[row + i], col + j + 2, typeName)));;;
+                borunqing(blockMatrix, i, j) == 1 && (this.matrix[row + i] = changeString(this.matrix[row + i], col + j + 2, typeName));
             }
         }
     };
@@ -94,7 +94,6 @@
         }
         //消两行
         else if(this.lineNo ==2){
-            alert(0)
             game.score += 20;
         }
         //消三行
