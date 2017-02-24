@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        canvas{
+            margin: 0 auto;
+            display: block;
+            background: skyblue;
+        }
+    </style>
+</head>
+<body>
+<canvas id="canvas" width="900" height="600" style="border: 1px solid #000;"></canvas>
+
+<script src="js/simpleInheritance.js"></script>
+<script src="js/underscore-min.js"></script>
+<script src="js/Game.js"></script>
+<script src="js/FrameUtil.js"></script>
+<script src="js/StaticSourceUtil.js"></script>
+<script src="js/Background.js"></script>
+<script src="js/Pipe.js"></script>
+<script src="js/Bird.js"></script>
+<script>
+    /*创建游戏对象*/
+    var game = new Game({
+        fps:60,
+        canvasId:'canvas'
+    });
+    /*游戏运行*/
+//    game.run();
+</script>
+</body>
+</html>
