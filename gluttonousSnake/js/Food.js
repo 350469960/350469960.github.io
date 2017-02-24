@@ -1,7 +1,7 @@
 (function () {
     var Food = window.Food = function () {
         //食物数组
-        this.arrFood = ['🍍','🍉','🍡','🍎','🍓','🍌','🍇','🍑','🍒','🥝'];
+        this.arrFood = ['🍍','🍉','🍡','🍎','🍓','🍌','🍇','🍑','🍒','🍐'];
         //食物下标
         this.index = parseInt(Math.random()*this.arrFood.length);
         //当前食物
