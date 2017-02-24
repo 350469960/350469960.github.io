@@ -28,26 +28,30 @@ a {text-decoration:none;}
 span:nth-child(1){
     top: 30px;
     left: 20px;
-    background: url(../images/snake.jpg);
+    background: url(../images/snake.jpg) no-repeat;
     background-size:contain;
+    background-clip: content-box;
 }
 span:nth-child(2){
     top: 240px;
     left: 20px;
-    background: url(../images/tetris.jpg);
+    background: url(../images/tetris.jpg) no-repeat;
     background-size:contain;
+    background-clip: content-box;
 }
 span:nth-child(3){
     top: 450px;
     left: 20px;
-    background: url(../images/flybird.jpg);
+    background: url(../images/flybird.jpg) no-repeat;
     background-size:contain;
+    background-clip: content-box;
 }
 span:nth-child(4){
     top: 30px;
     left: 220px;
-    background: url(../images/blog.jpg);
+    background: url(../images/blog.jpg) no-repeat;
     background-size:cover;
+    background-clip: content-box;
 }
 span:nth-child(5){
     top: 240px;
