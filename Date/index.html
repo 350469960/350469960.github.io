@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .calendar{
+            position: relative;
+            margin: 100px;
+            float: left;
+        }
+        .calendarDiv{
+            width: 300px;
+            position: absolute;
+            top: 30px;
+            border: 1px solid #ccc;
+        }
+        .calendarDiv select{
+            float: left;
+            margin-right: 20px;
+        }
+        table{
+            width: 100%;
+        }
+        table,th,tr,td{
+            border: 1px solid #ccc;
+            border-collapse:collapse;
+            text-align: center;
+            background: #fff;
+            color: #e02d2d;
+        }
+        td{
+            width: 45px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .col{
+            background: #fff;
+            color: #888;
+        }
+        .cur{
+            border: 3px solid orange;
+        }
+        .current{
+            color: red;
+            font-weight: bold;
+            font-family:"微软雅黑";
+        }
+        .btn{
+            width: 50px;
+            height: 19px;
+            cursor: pointer;
+            background: #fff;
+            border: 1px solid #ccc;
+            position: relative;
+            top: -1px;
+            /*font-weight: bold;*/
+            font-family:"微软雅黑";
+        }
+    </style>
+</head>
+<body>
+<div id="calendar1" class="calendar"></div>
+<script src="js/calendar.js"></script>
+<script>
+    var calendar1 = new Calendar({
+        'id' : 'calendar1'
+    });
+</script>
+</body>
+</html>
