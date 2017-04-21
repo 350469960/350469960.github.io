@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>JavaScript中闭包的作用和简单的用法 | ManSea</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="在JavaScript中闭包的作用和简单的用法一、闭包的简介作用域链:在js中只有函数有作用域的概念，由于函数内能访问函数外部的数据，而函数外部不能访问函数内部的数据，由上述形成一种作用域访问的链式结构叫做作用域链。
+
+闭包：通过某种方式实现的一个封闭的、包裹的对外不公开的结构|空间，有人称之为封闭空间，以及匿名函数自调。闭包可以使函数外部访问函数内部的数据。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript中闭包的作用和简单的用法">
+<meta property="og:url" content="http://yoursite.com/2017/02/18/closure/index.html">
+<meta property="og:site_name" content="ManSea">
+<meta property="og:description" content="在JavaScript中闭包的作用和简单的用法一、闭包的简介作用域链:在js中只有函数有作用域的概念，由于函数内能访问函数外部的数据，而函数外部不能访问函数内部的数据，由上述形成一种作用域访问的链式结构叫做作用域链。
+
+闭包：通过某种方式实现的一个封闭的、包裹的对外不公开的结构|空间，有人称之为封闭空间，以及匿名函数自调。闭包可以使函数外部访问函数内部的数据。">
+<meta property="og:updated_time" content="2017-04-01T17:07:54.199Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaScript中闭包的作用和简单的用法">
+<meta name="twitter:description" content="在JavaScript中闭包的作用和简单的用法一、闭包的简介作用域链:在js中只有函数有作用域的概念，由于函数内能访问函数外部的数据，而函数外部不能访问函数内部的数据，由上述形成一种作用域访问的链式结构叫做作用域链。
+
+闭包：通过某种方式实现的一个封闭的、包裹的对外不公开的结构|空间，有人称之为封闭空间，以及匿名函数自调。闭包可以使函数外部访问函数内部的数据。">
+  
+    <link rel="alternative" href="/atom.xml" title="ManSea" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/favicon.png">
+  
+  
+      <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  
+  
+      <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  
+  <!-- 加载特效 -->
+    <script src="/js/pace.js"></script>
+    <link href="/css/pace/pace-theme-flash.css" rel="stylesheet" />
+  <script>
+      var yiliaConfig = {
+          rootUrl: '/',
+          fancybox: true,
+          animate: true,
+          isHome: false,
+          isPost: true,
+          isArchive: false,
+          isTag: false,
+          isCategory: false,
+          open_in_new: true
+      }
+  </script>
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            
+            <img lazy-src="/img/head.jpg" class="js-avatar">
+            
+        </a>
+
+        <hgroup>
+          <h1 class="header-author"><a href="/" title="Hi Mate">ManSea</a></h1>
+        </hgroup>
+
+        
+        
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/index.html">博客首页</a></li>
+                        
+                            <li><a href="/tags/随笔">随笔</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fl github" target="_blank" href="https://github.com/ManSea209" title="github">github</a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <a href="/tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="/tags/Object/" style="font-size: 10px;">Object</a> <a href="/tags/VS-Code/" style="font-size: 10px;">VS Code</a> <a href="/tags/angular/" style="font-size: 10px;">angular</a>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://350469960.github.io/">name</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">纯海迷、爱运动、爱交友、爱旅行、喜欢接触新鲜事物、迎接新的挑战，更爱游离于错综复杂的编码与逻辑中</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="Me">ManSea</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                
+                    <img lazy-src="/img/head.jpg" class="js-avatar">
+                
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="Me">ManSea</a></h1>
+            </hgroup>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/index.html">博客首页</a></li>
+                
+                    <li><a href="/tags/随笔">随笔</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a class="github" target="_blank" href="https://github.com/ManSea209" title="github">github</a>
+                    
+                </div>
+            </nav>
+        </header>                
+    </div>
+</nav>
+      <div class="body-wrap"><article id="page-closure" class="article article-type-page" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/02/18/closure/" class="article-date">
+      <time datetime="2017-02-17T16:00:00.000Z" itemprop="datePublished">2017-02-18</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      JavaScript中闭包的作用和简单的用法
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/闭包/">闭包</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h1 id="在JavaScript中闭包的作用和简单的用法"><a href="#在JavaScript中闭包的作用和简单的用法" class="headerlink" title="在JavaScript中闭包的作用和简单的用法"></a>在JavaScript中闭包的作用和简单的用法</h1><h2 id="一、闭包的简介"><a href="#一、闭包的简介" class="headerlink" title="一、闭包的简介"></a>一、闭包的简介</h2><pre><code>作用域链:在js中只有函数有作用域的概念，由于函数内能访问函数外部的数据，而函数外部不能访问函数内部的数据，由上述形成一种作用域访问的链式结构叫做作用域链。
+
+闭包：通过某种方式实现的一个封闭的、包裹的对外不公开的结构|空间，有人称之为封闭空间，以及匿名函数自调。闭包可以使函数外部访问函数内部的数据。
+</code></pre><a id="more"></a>
+<h2 id="二、闭包的基本写法"><a href="#二、闭包的基本写法" class="headerlink" title="二、闭包的基本写法"></a>二、闭包的基本写法</h2><pre><code>1、通过return来访问函数内部的变量
+</code></pre><p><code>(function(){var a = 10; return 变量 | 函数 });</code></p>
+<pre><code>2、通过立即执行函数访问函数内部的变量
+   01、 (function(){})();// 常用
+   02、 (function(){}());// 常用
+   03、 ;function(){}();
+   04、 +function(){}();
+   05、 -function(){}();
+</code></pre><h2 id="三、闭包的作用"><a href="#三、闭包的作用" class="headerlink" title="三、闭包的作用"></a>三、闭包的作用</h2><pre><code>1、闭包的作用
+
+   01、提供一种间接访问函数内部变量的方法
+   02、延长函数内部的局部变量的生命周期(慎用！局部变量过多会占大量内存)
+   03、全局变量私有化，减少全局变量污染
+   04、函数局部变量在函数执行完后释放内存(函数执行完毕，其内部的变量立即销毁)
+   05、更新复杂变量(可以对变量进行校验和判断，保证安全性和稳定性)
+
+2、代码示例
+
+  01、提供一种间接访问函数内部变量的方法
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"> function A() &#123;</div><div class="line">    var num = 10;// 局部变量</div><div class="line">    return num;// 访问内部数据</div><div class="line">&#125;</div><div class="line">var B1 = A();</div><div class="line">console.log(B1);// 10   说明局部变量没有销毁   延长函数内部的局部变量的生命周期</div></pre></td></tr></table></figure>
+<p>上述代码可以在外部访问函数A内部的局部变量，并延长局部变量num的生命周期，但也有缺陷，每次访问都是一次性的，无法修改保存其变量如下代码所示：</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">function foo() &#123;</div><div class="line">    var obj = &#123;</div><div class="line">        name:&quot;张三&quot;,</div><div class="line">        age:28</div><div class="line">    &#125;;</div><div class="line">    return obj;</div><div class="line">&#125;</div><div class="line">var obj1 = foo();</div><div class="line">var obj2 = foo();</div><div class="line">console.log(obj1 == obj2);  //false</div></pre></td></tr></table></figure>
+<p>上述代码所示两次访问的对象不是同一个<code>console.log(obj1 == obj2); // false</code>！</p>
+<pre><code>03、全局变量私有化，减少全局变量污染
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">(function () &#123;</div><div class="line">    window.onload = function () &#123;// 全局变量私有化</div><div class="line"></div><div class="line">    &#125;;</div><div class="line">&#125;)();</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">(function () &#123;</div><div class="line">    var d = document;</div><div class="line">    var btn1 = d.getElementById(&apos;btn&apos;);</div><div class="line">    var btn2 = d.getElementById(&apos;btn&apos;);</div><div class="line">    var btn3 = d.getElementById(&apos;btn&apos;);</div><div class="line">&#125;)();</div></pre></td></tr></table></figure>
+<pre><code>05、更新复杂变量(可以对变量进行校验和判断，保证安全性和稳定性)
+
+001、设置数据
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">function test() &#123;</div><div class="line">    var str1 = &apos;字符串1&apos;;</div><div class="line">    return function (str) &#123;</div><div class="line">        str1 = str; // 设置数据</div><div class="line">        return str1;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">var test1 = test();</div><div class="line">console.log(test1(&apos;hello&apos;)); // hello</div><div class="line">console.log(test1()); // undefined</div></pre></td></tr></table></figure>
+<p>上述代码是设置数据，但并没有判断数据，由于函数调用时没有传参，所以结果是<code>console.log(test1()); // undefined</code>,我们还可以在其内部添加校验和判断，代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">function test() &#123;</div><div class="line">    var str1 = &apos;字符串1&apos;;</div><div class="line">    return function (str) &#123;</div><div class="line">        if(typeof str == &apos;string&apos;)&#123;// 判断传参是不是string类型</div><div class="line">            str1 = str; // 设置数据</div><div class="line">        &#125;</div><div class="line">        return str1;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">var test1 = test();</div><div class="line">console.log(test1(&apos;hello&apos;)); // hello</div><div class="line">console.log(test1()); // undefined</div></pre></td></tr></table></figure>
+<pre><code>002、返回多个数据
+
+- 以数组的形式返回
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">function person() &#123;</div><div class="line">    var name = &quot;黄忠&quot;;</div><div class="line">    var age = 45;</div><div class="line">    return [function () &#123;//以数组的形式返回多个数据</div><div class="line">        return name;</div><div class="line">    &#125;,</div><div class="line">        function () &#123;</div><div class="line">            return age;</div><div class="line">        &#125;];</div><div class="line">&#125;</div><div class="line">var p1 = person();</div><div class="line">console.log(p1[0]()); // 黄忠</div><div class="line">console.log(p1[1]()); // 45</div></pre></td></tr></table></figure>
+<p>一般不怎么以数组的形式返回数据！</p>
+<pre><code>- 以对象的形式返回
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">function person() &#123;</div><div class="line">    var name = &quot;黄忠&quot;;</div><div class="line">    var age = 45;</div><div class="line">    return &#123;</div><div class="line">        getName:function () &#123;//以对象的形式返回多个数据</div><div class="line">            return name;</div><div class="line">        &#125;,</div><div class="line">        getAge:function () &#123;</div><div class="line">            return age;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">var p1 = person();</div><div class="line">console.log(p1.getName()); // 黄忠</div><div class="line">console.log(p1.getAge()); // 45</div></pre></td></tr></table></figure>
+<p>我们一般以这种形式返回多个数据！</p>
+<pre><code>003、以对象形式返回多个数据并设置多个数据
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line">function person() &#123;</div><div class="line">    var name = &quot;黄忠&quot;;</div><div class="line">    var age = 45;</div><div class="line">    return &#123;</div><div class="line">        getName:function () &#123;//以对象的形式返回多个数据</div><div class="line">            return name;</div><div class="line">        &#125;,</div><div class="line">        getAge:function () &#123;</div><div class="line">            return age;</div><div class="line">        &#125;,</div><div class="line">        setName:function (value) &#123;</div><div class="line">            //容错性处理 + 逻辑校验</div><div class="line">            //判断</div><div class="line">            if (typeof value != &apos;string&apos;)</div><div class="line">            &#123;</div><div class="line">                throw &quot;该函数只接受字符串类型的参数&quot;;</div><div class="line">            &#125;</div><div class="line">            name = value;</div><div class="line">        &#125;,</div><div class="line">        setAge:function (num) &#123;</div><div class="line">            //容错性处理 + 逻辑校验</div><div class="line">            //判断</div><div class="line">            //console.log(num == NaN);// false</div><div class="line">            //var str = String(num);// 把获取的实参转为字符串</div><div class="line">            //var str1 = String(NaN);// 把NaN转为字符串</div><div class="line">            //if ((str == str1) || typeof num != &apos;number&apos; )</div><div class="line">            //&#123;//判断输入的是否为数字类型并且不为NaN</div><div class="line">            //    throw &quot;该函数只接受数字类型的参数并且不为NaN&quot;;</div><div class="line">            //&#125;</div><div class="line">            //parseInt(num)数字为true，其他为false</div><div class="line">            if (!(parseInt(num) || typeof num != &apos;number&apos; )</div><div class="line">            &#123;//parseInt(num)在会截取数字开头的字符串转为数字 || 所以还要判断类型</div><div class="line">               throw &quot;该函数只接受数字类型的参数并且不为NaN&quot;;</div><div class="line">            &#125;</div><div class="line">            age = num;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">var p1 = person();</div><div class="line">console.log(p1.getName()); // 黄忠</div><div class="line">console.log(p1.getAge()); // 45</div><div class="line">p1.setName(&apos;郭嘉&apos;);// 修改名字</div><div class="line">p1.setAge(28);// 修改年龄</div><div class="line">console.log(p1.getName()); // 郭嘉</div><div class="line">console.log(p1.getAge()); // 28</div></pre></td></tr></table></figure>
+<p>上述代码在返回的对象中多添加了<code>setName</code>方法和<code>setAge</code>方法,并在方法内部做了容错处理和校验判断，这样使代码的安全性和稳定性更好！</p>
+<h2 id="四、闭包的应用场景"><a href="#四、闭包的应用场景" class="headerlink" title="四、闭包的应用场景"></a>四、闭包的应用场景</h2><pre><code>1、for循环中
+</code></pre><p>For循环中，for循环执行的速率非常快，有时候，我们希望保存变量i，用于其他地方。我们就可以用到闭包！代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">&lt;!DOCTYPE html&gt;</div><div class="line">&lt;html lang=&quot;en&quot;&gt;</div><div class="line">&lt;head&gt;</div><div class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</div><div class="line">    &lt;title&gt;&lt;/title&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">&lt;button&gt;第一个&lt;/button&gt;</div><div class="line">&lt;button&gt;第二个&lt;/button&gt;</div><div class="line">&lt;button&gt;第三个&lt;/button&gt;</div><div class="line">&lt;button&gt;第四个&lt;/button&gt;</div><div class="line">&lt;button&gt;第五个&lt;/button&gt;</div><div class="line">&lt;script&gt;</div><div class="line">    var btns = document.getElementsByTagName(&apos;button&apos;);</div><div class="line">    //遍历按钮</div><div class="line">    for(var i= 0;i &lt; btns.length;i++)&#123;</div><div class="line">        (function (a) &#123;// 保存在形参中</div><div class="line">            btns[a].onclick = function () &#123;// 按钮点击事件  每点击对应的按钮弹出对应的数字</div><div class="line">                alert(a+1);</div><div class="line">            &#125;</div><div class="line">        &#125;)(i) ;// 把i当作实参传进去</div><div class="line">    &#125;</div><div class="line">    console.log(i);// 5 //在js中只有函数有作用域的概念</div><div class="line">&lt;/script&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
+<p>但上述代码中变量i是全局变量会影响其他的for循环，我们也可以用闭包把for循环包起来，防止全局变量污染！代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">var btns = document.getElementsByTagName(&apos;button&apos;);</div><div class="line">//遍历按钮</div><div class="line">(function () &#123;</div><div class="line">    for(var i= 0;i &lt; btns.length;i++)&#123;</div><div class="line">        (function (a) &#123;// 保存在形参中</div><div class="line">            btns[a].onclick = function () &#123;// 按钮点击事件  每点击对应的按钮弹出对应的数字</div><div class="line">                alert(a+1);</div><div class="line">            &#125;</div><div class="line">        &#125;)(i) ;// 把i当作实参传进去</div><div class="line">    &#125;</div><div class="line">&#125;)();</div><div class="line">console.log(i);// Uncaught ReferenceError: i is not defined // i 未定义</div></pre></td></tr></table></figure>
+<p>上述代码把for循环包起来，就把全局变量私有化了，外面就无法访问了，所以报错<code>未定义</code>。</p>
+<pre><code>2、在for循环中处理事件机制时我们经常用到闭包！
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">&lt;!DOCTYPE html&gt;</div><div class="line">&lt;html lang=&quot;en&quot;&gt;</div><div class="line">&lt;head&gt;</div><div class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</div><div class="line">    &lt;title&gt;&lt;/title&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">&lt;button&gt;第一个&lt;/button&gt;</div><div class="line">&lt;button&gt;第二个&lt;/button&gt;</div><div class="line">&lt;button&gt;第三个&lt;/button&gt;</div><div class="line">&lt;button&gt;第四个&lt;/button&gt;</div><div class="line">&lt;button&gt;第五个&lt;/button&gt;</div><div class="line">&lt;script&gt;</div><div class="line">    var btns = document.getElementsByTagName(&apos;button&apos;);</div><div class="line">    //遍历按钮</div><div class="line">    for(var i= 0;i &lt; btns.length;i++)&#123;</div><div class="line">        btns[i].onclick = (function (a) &#123;</div><div class="line">            return function () &#123;</div><div class="line">                alert(a+1);</div><div class="line">            &#125;</div><div class="line">        &#125;)(i);</div><div class="line">    &#125;</div><div class="line">&lt;/script&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
+<pre><code>3、在定时器中使用闭包
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">for (var i = 0; i &lt; 10; i++) &#123;</div><div class="line">    setTimeout((function (j) &#123;</div><div class="line">        return function () &#123;</div><div class="line">            console.log(j);</div><div class="line">        &#125;</div><div class="line">    &#125;)(i),1000);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="五、结论"><a href="#五、结论" class="headerlink" title="五、结论"></a>五、结论</h2><p>闭包的原理:变量的访问原则(即上一级的作用域无法访问下一级的作用域),其实函数本身就是闭包</p>
+
+      
+      
+        <div class="page-reward">
+          <p><a href="javascript:void(0)" onclick="dashangToggle()" class="dashang" title="打赏，支持一下">赏</a></p>
+          <div class="hide_box"></div>
+          <div class="shang_box">
+            <a class="shang_close" href="javascript:void(0)" onclick="dashangToggle()" title="关闭">×</a>
+            <div class="shang_tit">
+              <p>纯属好玩</p>
+            </div>
+            <div class="shang_payimg">
+              <img src="/img/alipayimg.jpg" alt="扫码支持" title="扫一扫" />
+            </div>
+              <div class="pay_explain">扫码打赏，你说多少就多少</div>
+            <div class="shang_payselect">
+              
+                <div class="pay_item checked" data-id="alipay">
+                  <span class="radiobox"></span>
+                  <span class="pay_logo"><img src="/img/alipayimg.jpg" alt="支付宝" /></span>
+                </div>
+              
+              
+                <div class="pay_item" data-id="wechat">
+                  <span class="radiobox"></span>
+                  <span class="pay_logo"><img src="/img/wechatimg.jpg" alt="微信" /></span>
+                </div>
+              
+            </div>
+            <div class="shang_info">
+              <p>打开<span id="shang_pay_txt">支付宝</span>扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+        </div>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/zepto/1.2.0/zepto.min.js"></script>
+        <script type="text/javascript">
+          $(".pay_item").click(function(){
+            $(this).addClass('checked').siblings('.pay_item').removeClass('checked');
+            var dataid=$(this).attr('data-id');
+            $(".shang_payimg img").attr("src","/img/"+dataid+"img.jpg");
+            $("#shang_pay_txt").text(dataid=="alipay"?"支付宝":"微信");
+          });
+          function dashangToggle(){
+            $(".hide_box").fadeToggle();
+            $(".shang_box").fadeToggle();
+          }
+        </script>
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2017/02/18/closure/">JavaScript中闭包的作用和简单的用法</a></p>
+        <p><span>文章作者:</span><a href="/" title="访问 ManSea 的个人博客">ManSea</a></p>
+        <p><span>发布时间:</span>2017年02月18日 - 00时00分</p>
+        <p><span>最后更新:</span>2017年04月02日 - 01时07分</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2017/02/18/closure/" title="JavaScript中闭包的作用和简单的用法">http://yoursite.com/2017/02/18/closure/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2017/02/18/closure/　　作者: ManSea" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script src="/js/clipboard.min.js"></script>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+<nav id="article-nav">
+  
+    <a href="/2017/02/22/promotion/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          JavaScript中关于变量与函数的提升
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/02/17/this/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">JavaScript中的this关键字的用法和注意点</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#在JavaScript中闭包的作用和简单的用法"><span class="toc-number">1.</span> <span class="toc-text">在JavaScript中闭包的作用和简单的用法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、闭包的简介"><span class="toc-number">1.1.</span> <span class="toc-text">一、闭包的简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、闭包的基本写法"><span class="toc-number">1.2.</span> <span class="toc-text">二、闭包的基本写法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、闭包的作用"><span class="toc-number">1.3.</span> <span class="toc-text">三、闭包的作用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四、闭包的应用场景"><span class="toc-number">1.4.</span> <span class="toc-text">四、闭包的应用场景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#五、结论"><span class="toc-number">1.5.</span> <span class="toc-text">五、结论</span></a></li></ol></li></ol>
+</div>
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+        }
+    })
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+    }
+</script>
+
+
+
+
+
+<div class="bdsharebuttonbox">
+	<a href="#" class="fx fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+	<a href="#" class="fx fa-weixin bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+	<a href="#" class="fx fa-qq bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+	<a href="#" class="fx fa-facebook-official bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+	<a href="#" class="fx fa-twitter bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+	<a href="#" class="fx fa-linkedin bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a>
+	<a href="#" class="fx fa-files-o bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+
+
+    
+        <section id="comments">
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'null'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+    
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2017/02/22/promotion/" title="上一篇: JavaScript中关于变量与函数的提升">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+        
+            <a href="/2017/02/17/this/" title="下一篇: JavaScript中的this关键字的用法和注意点">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/04/20/寄生式组合继承能否优化/">寄生式组合继承能否优化？</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/09/vs code 的常用快捷键和常用插件/">VS Code 的常用快捷键和插件</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/18/Angular 中的常用指令/">Angular 中的常用指令和常用服务</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/22/promotion/">JavaScript中关于变量与函数的提升</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/closure/">JavaScript中闭包的作用和简单的用法</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/17/this/">JavaScript中的this关键字的用法和注意点</a></li></ul>
+    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+    <script>
+        $(".post-list").addClass("toc-article");
+        $(".post-list-item a").attr("target","_blank");
+        $("#post-nav-button > a:nth-child(2)").click(function() {
+            $(".fa-bars, .fa-times").toggle();
+            $(".post-list").toggle(300);
+            if ($(".toc").length > 0) {
+                $("#toc, #tocButton").toggle(200, function() {
+                    if ($(".switch-area").is(":visible")) {
+                        $("#tocButton").attr("value", valueHide);
+                        }
+                    })
+            }
+            else {
+            }
+        })
+    </script>
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                &copy; 2017 ManSea
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/luuman/hexo-theme-spfk" target="_blank">spfk</a> by luuman
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" >海员到访数: 
+                            <span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>, </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit">本页阅读量: 
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+
+    </div>
+    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var backgroundnum = 24;
+            var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+            $("#mobile-nav").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+            $(".left-col").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    $(document).ready(function() {
+        if ($("#comments").length < 1) {
+            $("#scroll > a:nth-child(2)").hide();
+        };
+    })
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+  <script language="javascript">
+    $(function() {
+        $("a[title]").each(function() {
+            var a = $(this);
+            var title = a.attr('title');
+            if (title == undefined || title == "") return;
+            a.data('title', title).removeAttr('title').hover(
+
+            function() {
+                var offset = a.offset();
+                $("<div id=\"anchortitlecontainer\"></div>").appendTo($("body")).html(title).css({
+                    top: offset.top - a.outerHeight() - 15,
+                    left: offset.left + a.outerWidth()/2 + 1
+                }).fadeIn(function() {
+                    var pop = $(this);
+                    setTimeout(function() {
+                        pop.remove();
+                    }, pop.text().length * 800);
+                });
+            }, function() {
+                $("#anchortitlecontainer").remove();
+            });
+        });
+    });
+</script>
+
+
+  </div>
+</body>
+</html>

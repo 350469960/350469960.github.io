@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>寄生式组合继承能否优化？ | ManSea</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="问题：寄生式组合继承能否优化？1、修改子类原型对象的引用属性，其父类的原型对象的引用属性跟着改变2、欢迎大家来指正！
+JavaScript中的多种继承方式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="寄生式组合继承能否优化？">
+<meta property="og:url" content="http://yoursite.com/2017/04/20/寄生式组合继承能否优化/index.html">
+<meta property="og:site_name" content="ManSea">
+<meta property="og:description" content="问题：寄生式组合继承能否优化？1、修改子类原型对象的引用属性，其父类的原型对象的引用属性跟着改变2、欢迎大家来指正！
+JavaScript中的多种继承方式">
+<meta property="og:updated_time" content="2017-04-21T16:18:27.817Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="寄生式组合继承能否优化？">
+<meta name="twitter:description" content="问题：寄生式组合继承能否优化？1、修改子类原型对象的引用属性，其父类的原型对象的引用属性跟着改变2、欢迎大家来指正！
+JavaScript中的多种继承方式">
+  
+    <link rel="alternative" href="/atom.xml" title="ManSea" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/favicon.png">
+  
+  
+      <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  
+  
+      <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  
+  <!-- 加载特效 -->
+    <script src="/js/pace.js"></script>
+    <link href="/css/pace/pace-theme-flash.css" rel="stylesheet" />
+  <script>
+      var yiliaConfig = {
+          rootUrl: '/',
+          fancybox: true,
+          animate: true,
+          isHome: false,
+          isPost: true,
+          isArchive: false,
+          isTag: false,
+          isCategory: false,
+          open_in_new: true
+      }
+  </script>
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            
+            <img lazy-src="/img/head.jpg" class="js-avatar">
+            
+        </a>
+
+        <hgroup>
+          <h1 class="header-author"><a href="/" title="Hi Mate">ManSea</a></h1>
+        </hgroup>
+
+        
+        
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/index.html">博客首页</a></li>
+                        
+                            <li><a href="/tags/随笔">随笔</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fl github" target="_blank" href="https://github.com/ManSea209" title="github">github</a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <a href="/tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="/tags/Object/" style="font-size: 10px;">Object</a> <a href="/tags/VS-Code/" style="font-size: 10px;">VS Code</a> <a href="/tags/angular/" style="font-size: 10px;">angular</a>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://350469960.github.io/">name</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">纯海迷、爱运动、爱交友、爱旅行、喜欢接触新鲜事物、迎接新的挑战，更爱游离于错综复杂的编码与逻辑中</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="Me">ManSea</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                
+                    <img lazy-src="/img/head.jpg" class="js-avatar">
+                
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="Me">ManSea</a></h1>
+            </hgroup>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/index.html">博客首页</a></li>
+                
+                    <li><a href="/tags/随笔">随笔</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a class="github" target="_blank" href="https://github.com/ManSea209" title="github">github</a>
+                    
+                </div>
+            </nav>
+        </header>                
+    </div>
+</nav>
+      <div class="body-wrap"><article id="page-寄生式组合继承能否优化" class="article article-type-page" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/04/20/寄生式组合继承能否优化/" class="article-date">
+      <time datetime="2017-04-19T16:00:00.000Z" itemprop="datePublished">2017-04-20</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      寄生式组合继承能否优化？
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/继承方式/">继承方式</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Object/">Object</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h2 id="问题：寄生式组合继承能否优化？"><a href="#问题：寄生式组合继承能否优化？" class="headerlink" title="问题：寄生式组合继承能否优化？"></a>问题：寄生式组合继承能否优化？</h2><p>1、修改子类原型对象的引用属性，其父类的原型对象的引用属性跟着改变<br>2、欢迎大家来指正！</p>
+<h3 id="JavaScript中的多种继承方式"><a href="#JavaScript中的多种继承方式" class="headerlink" title="JavaScript中的多种继承方式"></a>JavaScript中的多种继承方式</h3><a id="more"></a>
+<h4 id="一、混入式继承：指的是字面量1继承字面量2"><a href="#一、混入式继承：指的是字面量1继承字面量2" class="headerlink" title="一、混入式继承：指的是字面量1继承字面量2;"></a>一、混入式继承：指的是字面量1继承字面量2;</h4><p>a) 实现方式:遍历字面量2赋值给字面量1<br>b) 注意点：必须用[]语法，不能用点语法<br>c) 缺点：修改字面量1会对字面量2造成影响<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">　# 继承的实现(混入式继承)</div><div class="line">    &lt;script&gt;</div><div class="line">        var dog = &#123;</div><div class="line">                name: &quot;啦啦小新&quot;,</div><div class="line">                age: 20,</div><div class="line">                friends: [&quot;哗啦哗啦&quot;, &quot;哔哩哔哩&quot;]</div><div class="line">            &#125;</div><div class="line">            //dog1</div><div class="line">        var dog1 = &#123;&#125;;</div><div class="line">        //dog1 能够拥有dog对象中所有的属性和方法</div><div class="line">        //遍历dog对象,拷贝它所有的属性和方法设置到自己的身上</div><div class="line">        for (var k in dog) &#123;</div><div class="line">            //使用[]语法</div><div class="line">            dog1[k] = dog[k];</div><div class="line">        &#125;</div><div class="line">        console.log(dog1);</div><div class="line">        //问题:修改其中的某个对象dog1,会对原对象产生影响</div><div class="line">        //为什么:引用类型的赋值(地址)</div><div class="line">        dog1.friends.push(&quot;乌拉乌拉&quot;);</div><div class="line">        哗啦哗啦&quot;, &quot;哔哩哔哩&quot;，&quot;乌拉乌拉&quot;]&#125;</div><div class="line">        console.log(dog); //&#123;name: &quot;啦啦小新&quot;,age: 20,friends: [&quot;哗啦哗啦&quot;, &quot;哔哩哔哩&quot;，&quot;乌拉乌拉&quot;]&#125;</div><div class="line"></div><div class="line">    &lt;/script&gt;</div></pre></td></tr></table></figure></p>
+<h4 id="二、原型式继承：通过设置其原型的方式继承"><a href="#二、原型式继承：通过设置其原型的方式继承" class="headerlink" title="二、原型式继承：通过设置其原型的方式继承"></a>二、原型式继承：通过设置其原型的方式继承</h4><p>a)实现方式：<br>i.设置构造函数的原型对象的属性和方法（点语法），构造函数创建出来的对象自动共享原型对象中的属性和方法<br>ii.设置构造函数的原型对象的属性和方法（字面量法），构造函数创建出来的对象自动共享原型对象中的属性和方法<br>iii.设置子对象的原型对象为父对象的原型对象，再修正构造器，子对象构造函数创建出来的对象自动共享父对象的原型对象中的属性和方法<br>b)注意点：使用原型替换的方式实现继承的时候,原有原型对象中的属性和方法会丢失<br>c)缺点：<br>i.修改一个对象的属性和方法，会影响其他的对象<br>ii.只能继承原型属性和方法，无法继承实例属性和方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">  # 原型式继承A</div><div class="line">    &lt;script&gt;</div><div class="line">        function Animal() &#123;&#125;</div><div class="line">        //设置原型对象</div><div class="line">        Animal.prototype.run = function() &#123;</div><div class="line">            console.log(&quot;run&quot;);</div><div class="line">        &#125;</div><div class="line">        Animal.prototype.type = &quot;猫科动物&quot;;</div><div class="line">        //创建对象</div><div class="line">        //性质:构造函数创建出来的所有对象都自动拥有其对于原型对象上面的所有属性和方法</div><div class="line">        var a = new Animal();</div><div class="line">        console.log(a.type);</div><div class="line">        a.run();</div><div class="line">    &lt;/script&gt;</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">    # 原型式继承B</div><div class="line">    &lt;script&gt;</div><div class="line">        var obj = &#123;</div><div class="line">            name: &quot;默认的名字&quot;,</div><div class="line">            age: 20</div><div class="line">        &#125;;</div><div class="line"></div><div class="line">        function Animal() &#123;&#125;</div><div class="line">        //设置原型对象</div><div class="line">        Animal.prototype = obj;</div><div class="line">        //修正构造器属性</div><div class="line">        Animal.prototype.constructor = Animal;</div><div class="line">        //创建对象</div><div class="line">        //性质:构造函数创建出来的所有对象都自动拥有其对于原型对象上面的所有属性和方法</div><div class="line">        var a = new Animal();</div><div class="line">        console.log(a.name);</div><div class="line">        console.log(a.age);</div><div class="line">    &lt;/script&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">    # 原型式继承C</div><div class="line">    &lt;script&gt;</div><div class="line">        function Animal() &#123;&#125;</div><div class="line">        //设置原型对象</div><div class="line">        Animal.prototype.run = function() &#123;</div><div class="line">            console.log(&quot;run&quot;);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        function Dog() &#123;&#125;</div><div class="line">        //设置原型</div><div class="line">        Dog.prototype = Animal.prototype;</div><div class="line">        //创建对象</div><div class="line">        var dog = new Dog();</div><div class="line">        dog.run();</div><div class="line">        //问题:</div><div class="line">        //001 Dog 的原型对象和Animal的原型对象是同一个,不论是谁修改了原型对象会影响到另外一个</div><div class="line">        //002 只能继承Animal的原型属性和方法,无法得到其实例属性和方法</div><div class="line">    &lt;/script&gt;</div></pre></td></tr></table></figure>
+<h4 id="三、原型链继承：是通过原型链的方式继承"><a href="#三、原型链继承：是通过原型链的方式继承" class="headerlink" title="三、原型链继承：是通过原型链的方式继承"></a>三、原型链继承：是通过原型链的方式继承</h4><p>a)实现方式：<br>i.设置子对象的原型对象为  new 父对象构造函数<br>ii.子对象构造函数创建出来的对象自动共享父对象中的属性和方法（实例和原型属性和方法）;<br>b)注意点：<br>i.设置原型链继承必须在设置子对象的属性和方法之前<br>ii.如果设置同名的实例属性或方法，会覆盖父对象中的属性和方法<br>iii.设置原型链继承之后,需要修正构造器属性指向<br>iv.完成继承后再以字面量的方式设置子对象原型，会断开继承<br>c)缺点：<br>i.修改一个对象的属性和方法，会影响其他的对象<br>ii.无法对父对象进行传参<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"> # 构造函数A - B</div><div class="line">    &lt;script&gt;</div><div class="line">        //01 提供两个构造函数</div><div class="line">        //02 设置A构造函数的原型对象的属性和方法</div><div class="line">        //03 设置原型链继承</div><div class="line">        //04 创建B类型的对象 使用B构造函数来创建对象</div><div class="line">        function A() &#123;</div><div class="line">            this.description = &quot;描述信息&quot;;</div><div class="line">            this.logDes = function() &#123;</div><div class="line">                console.log(this.description);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        A.prototype.name = &quot;A的默认名称&quot;;</div><div class="line">        A.prototype.showName = function() &#123;</div><div class="line">            console.log(this.name);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        function B() &#123;&#125;;</div><div class="line">        B.prototype = new A(); //完成继承</div><div class="line"> 			 B.prototype.constructor = B; //修正构造器</div><div class="line">        var b1 = new B();</div><div class="line">        console.log(b1.name); //A的默认名称</div><div class="line">        b1.showName(); //A的默认名称</div><div class="line">        b1.logDes(); //描述信息</div><div class="line">    &lt;/script&gt;</div></pre></td></tr></table></figure></p>
+<h4 id="四、借用构造函数继承：是指通过借用别人的方法或属性来实现继承"><a href="#四、借用构造函数继承：是指通过借用别人的方法或属性来实现继承" class="headerlink" title="四、借用构造函数继承：是指通过借用别人的方法或属性来实现继承"></a>四、借用构造函数继承：是指通过借用别人的方法或属性来实现继承</h4><p>a)实现方式：<br>i.子对象构造函数中设置：父对象构造函数.call/apply(this,参数);<br>ii.子对象构造函数创建出来的对象自动共享父对象中的实例属性和方法（实例属性和方法）;<br>b)注意点：call和apply方法会改变this的指向，谁调用就指向谁<br>c)缺点：只能继承实例属性和方法，无法继承原型属性和方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;</div><div class="line">        //01 提供父类型的构造函数</div><div class="line">        function SuperType(name) &#123;</div><div class="line">            //02 在构造函数中中设置实例属性,该属性为引用类型</div><div class="line">            this.family = [&apos;哥哥&apos;, &apos;姐姐&apos;, &apos;爸爸&apos;, &apos;妈妈&apos;];</div><div class="line">            //实例属性</div><div class="line">            this.name = name;</div><div class="line">        &#125;;</div><div class="line">        //03 提供子类型的构造函数</div><div class="line">        function SubType() &#123;</div><div class="line">            //经典继承|借用构造函数|伪造对象继承</div><div class="line">            //SuperType.call(this);</div><div class="line">            //构造参数传递参数</div><div class="line">            SuperType.call(this, &apos;张老汉&apos;);</div><div class="line">        &#125;;</div><div class="line">        //04 创建父类型的实例对象,并对内部的实例化属性进行修改</div><div class="line">        var subDemo1 = new SubType();</div><div class="line">        var subDemo2 = new SubType();</div><div class="line">        console.log(subDemo1);</div><div class="line">        alert(subDemo1.family); //哥哥,姐姐,爸爸,妈妈</div><div class="line">        alert(subDemo2.family); //哥哥,姐姐,爸爸,妈妈</div><div class="line">        subDemo1.family.push(&apos;爷爷&apos;, &apos;奶奶&apos;);</div><div class="line">        alert(subDemo1.family); //哥哥,姐姐,爸爸,妈妈,爷爷,奶奶</div><div class="line">        alert(subDemo2.family); //哥哥,姐姐,爸爸,妈妈</div><div class="line">        //测试构造函数传递参数</div><div class="line">        alert(subDemo1.name);</div><div class="line">    &lt;/script&gt;</div></pre></td></tr></table></figure></p>
+<h4 id="五、组合继承：是指借用构造函数继承和原型式继承的组合"><a href="#五、组合继承：是指借用构造函数继承和原型式继承的组合" class="headerlink" title="五、组合继承：是指借用构造函数继承和原型式继承的组合"></a>五、组合继承：是指借用构造函数继承和原型式继承的组合</h4><p>a)实现方式：<br>i.子对象构造函数中设置：父对象构造函数.call/apply(this,参数);<br>ii.设置子对象的原型对象为父对象的原型对象;<br>iii.修正子对象的构造器；<br>iv.子对象构造函数创建出来的对象自动共享父对象中的属性和方法（实例和原型属性和方法）;<br>b)注意点：call和apply方法是伪继承 /没有继承关系  只是把Person构造函数的属性和方法深复制一份（包括引用类型：指针和堆空间的数据）<br>c)缺点：修改子类原型方法和原型引用属性,父类原型方法和原型引用属性也跟着变<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"> &lt;script&gt;</div><div class="line">/*该继承缺点:修改子类原型的方法,父类原型方法也跟着变，其*/</div><div class="line">function Person(name) &#123;</div><div class="line">    this.name = name;</div><div class="line">&#125;</div><div class="line">Person.prototype.age = 12;</div><div class="line">Person.prototype.arr = [1,2,3];</div><div class="line">Person.prototype.play = function() &#123;</div><div class="line">    console.log(this.name + &quot;playfooterball&quot;);</div><div class="line">&#125;</div><div class="line"></div><div class="line">function Student(name) &#123;</div><div class="line">    Person.call(this, name);</div><div class="line">    /*伪继承 没有继承关系 只是把Person构造函数的属性和方法深复制一份（包括引用类型：指针和堆空间的数据）*/</div><div class="line">&#125;</div><div class="line">Student.prototype = Person.prototype;</div><div class="line">Student.constructor = Student;</div><div class="line">Student.prototype.play = function() &#123;</div><div class="line">    console.log(this.name + &quot;playbasketball&quot;);</div><div class="line">&#125;</div><div class="line">var s1 = new Student(&quot;漳卅&quot;);</div><div class="line">s1.arr.push(4);</div><div class="line">console.log(s1); //Student对象</div><div class="line">console.log(s1.age); //12</div><div class="line">console.log(s1.arr);</div><div class="line">s1.play(); // 漳卅playbasketball</div><div class="line">var p = new Person(&quot;郭嘉&quot;);</div><div class="line">p.play(); // 郭嘉playbasketball</div><div class="line">console.log(p.arr);</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure></p>
+<h4 id="六、寄生组合式继承：优化了组合继承中的修改子类原型方法-父类原型方法也跟着变的缺点"><a href="#六、寄生组合式继承：优化了组合继承中的修改子类原型方法-父类原型方法也跟着变的缺点" class="headerlink" title="六、寄生组合式继承：优化了组合继承中的修改子类原型方法,父类原型方法也跟着变的缺点"></a>六、寄生组合式继承：优化了组合继承中的修改子类原型方法,父类原型方法也跟着变的缺点</h4><p>a)实现方法：<br>i.只需把组合继承中的设置子对象的原型对象为父对象的原型对象这一句;<br>ii.修改为子对象的原型对象为object.create(父对象的原型对象);就OK了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;</div><div class="line">function Person(name) &#123;</div><div class="line">    this.name = name;</div><div class="line">&#125;	</div><div class="line">Person.prototype.age = 12;</div><div class="line">Person.prototype.play = function () &#123;</div><div class="line">    console.log(this.name + &quot;playfooterball&quot;);</div><div class="line">&#125;</div><div class="line">Person.prototype.arr = [1,2,3];</div><div class="line">function Student(name) &#123;</div><div class="line">     Person.call(this,name);</div><div class="line">/*伪继承 没有继承关系 只是把Person构造函数的属性和方法深复制一份（包括引用	类型：指针和堆空间的数据）*/</div><div class="line">&#125;</div><div class="line">Student.prototype = Object.create(Person.prototype);</div><div class="line">Student.constructor = Student;</div><div class="line">Student.prototype.play = function()&#123;</div><div class="line">    console.log(this.name + &quot;playbasketball&quot;);</div><div class="line">&#125;</div><div class="line">var s1 = new Student(&quot;漳卅&quot;);</div><div class="line">s1.arr.push(4);</div><div class="line">console.log(s1);//漳卅</div><div class="line">console.log(s1.age);//12</div><div class="line">Console.log(s1.arr);//[1,2,3,4]</div><div class="line">s1.play();//漳卅 playbasketball</div><div class="line">var p = new Person(&quot;郭嘉&quot;);</div><div class="line">p.play();//郭嘉 playfooterball</div><div class="line">console.log(p.arr);//[1,2,3,4]</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure></p>
+<p>上述代码：修改子类的原型引用类属性，其父类的原型引用类属性跟着改变！</p>
+
+      
+      
+        <div class="page-reward">
+          <p><a href="javascript:void(0)" onclick="dashangToggle()" class="dashang" title="打赏，支持一下">赏</a></p>
+          <div class="hide_box"></div>
+          <div class="shang_box">
+            <a class="shang_close" href="javascript:void(0)" onclick="dashangToggle()" title="关闭">×</a>
+            <div class="shang_tit">
+              <p>纯属好玩</p>
+            </div>
+            <div class="shang_payimg">
+              <img src="/img/alipayimg.jpg" alt="扫码支持" title="扫一扫" />
+            </div>
+              <div class="pay_explain">扫码打赏，你说多少就多少</div>
+            <div class="shang_payselect">
+              
+                <div class="pay_item checked" data-id="alipay">
+                  <span class="radiobox"></span>
+                  <span class="pay_logo"><img src="/img/alipayimg.jpg" alt="支付宝" /></span>
+                </div>
+              
+              
+                <div class="pay_item" data-id="wechat">
+                  <span class="radiobox"></span>
+                  <span class="pay_logo"><img src="/img/wechatimg.jpg" alt="微信" /></span>
+                </div>
+              
+            </div>
+            <div class="shang_info">
+              <p>打开<span id="shang_pay_txt">支付宝</span>扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+        </div>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/zepto/1.2.0/zepto.min.js"></script>
+        <script type="text/javascript">
+          $(".pay_item").click(function(){
+            $(this).addClass('checked').siblings('.pay_item').removeClass('checked');
+            var dataid=$(this).attr('data-id');
+            $(".shang_payimg img").attr("src","/img/"+dataid+"img.jpg");
+            $("#shang_pay_txt").text(dataid=="alipay"?"支付宝":"微信");
+          });
+          function dashangToggle(){
+            $(".hide_box").fadeToggle();
+            $(".shang_box").fadeToggle();
+          }
+        </script>
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2017/04/20/寄生式组合继承能否优化/">寄生式组合继承能否优化？</a></p>
+        <p><span>文章作者:</span><a href="/" title="访问 ManSea 的个人博客">ManSea</a></p>
+        <p><span>发布时间:</span>2017年04月20日 - 00时00分</p>
+        <p><span>最后更新:</span>2017年04月22日 - 00时18分</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2017/04/20/寄生式组合继承能否优化/" title="寄生式组合继承能否优化？">http://yoursite.com/2017/04/20/寄生式组合继承能否优化/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2017/04/20/寄生式组合继承能否优化/　　作者: ManSea" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script src="/js/clipboard.min.js"></script>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+<nav id="article-nav">
+  
+  
+    <a href="/2017/04/09/vs code 的常用快捷键和常用插件/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">VS Code 的常用快捷键和插件</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#问题：寄生式组合继承能否优化？"><span class="toc-number">1.</span> <span class="toc-text">问题：寄生式组合继承能否优化？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#JavaScript中的多种继承方式"><span class="toc-number">1.1.</span> <span class="toc-text">JavaScript中的多种继承方式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#一、混入式继承：指的是字面量1继承字面量2"><span class="toc-number">1.1.1.</span> <span class="toc-text">一、混入式继承：指的是字面量1继承字面量2;</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#二、原型式继承：通过设置其原型的方式继承"><span class="toc-number">1.1.2.</span> <span class="toc-text">二、原型式继承：通过设置其原型的方式继承</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#三、原型链继承：是通过原型链的方式继承"><span class="toc-number">1.1.3.</span> <span class="toc-text">三、原型链继承：是通过原型链的方式继承</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#四、借用构造函数继承：是指通过借用别人的方法或属性来实现继承"><span class="toc-number">1.1.4.</span> <span class="toc-text">四、借用构造函数继承：是指通过借用别人的方法或属性来实现继承</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#五、组合继承：是指借用构造函数继承和原型式继承的组合"><span class="toc-number">1.1.5.</span> <span class="toc-text">五、组合继承：是指借用构造函数继承和原型式继承的组合</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#六、寄生组合式继承：优化了组合继承中的修改子类原型方法-父类原型方法也跟着变的缺点"><span class="toc-number">1.1.6.</span> <span class="toc-text">六、寄生组合式继承：优化了组合继承中的修改子类原型方法,父类原型方法也跟着变的缺点</span></a></li></ol></li></ol></li></ol>
+</div>
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+        }
+    })
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+    }
+</script>
+
+
+
+
+
+<div class="bdsharebuttonbox">
+	<a href="#" class="fx fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+	<a href="#" class="fx fa-weixin bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+	<a href="#" class="fx fa-qq bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+	<a href="#" class="fx fa-facebook-official bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+	<a href="#" class="fx fa-twitter bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+	<a href="#" class="fx fa-linkedin bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a>
+	<a href="#" class="fx fa-files-o bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+
+
+    
+        <section id="comments">
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'null'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+    
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+        
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+        
+            <a href="/2017/04/09/vs code 的常用快捷键和常用插件/" title="下一篇: VS Code 的常用快捷键和插件">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/04/20/寄生式组合继承能否优化/">寄生式组合继承能否优化？</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/09/vs code 的常用快捷键和常用插件/">VS Code 的常用快捷键和插件</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/18/Angular 中的常用指令/">Angular 中的常用指令和常用服务</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/22/promotion/">JavaScript中关于变量与函数的提升</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/closure/">JavaScript中闭包的作用和简单的用法</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/17/this/">JavaScript中的this关键字的用法和注意点</a></li></ul>
+    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+    <script>
+        $(".post-list").addClass("toc-article");
+        $(".post-list-item a").attr("target","_blank");
+        $("#post-nav-button > a:nth-child(2)").click(function() {
+            $(".fa-bars, .fa-times").toggle();
+            $(".post-list").toggle(300);
+            if ($(".toc").length > 0) {
+                $("#toc, #tocButton").toggle(200, function() {
+                    if ($(".switch-area").is(":visible")) {
+                        $("#tocButton").attr("value", valueHide);
+                        }
+                    })
+            }
+            else {
+            }
+        })
+    </script>
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                &copy; 2017 ManSea
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/luuman/hexo-theme-spfk" target="_blank">spfk</a> by luuman
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" >海员到访数: 
+                            <span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>, </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit">本页阅读量: 
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+
+    </div>
+    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var backgroundnum = 24;
+            var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+            $("#mobile-nav").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+            $(".left-col").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    $(document).ready(function() {
+        if ($("#comments").length < 1) {
+            $("#scroll > a:nth-child(2)").hide();
+        };
+    })
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+  <script language="javascript">
+    $(function() {
+        $("a[title]").each(function() {
+            var a = $(this);
+            var title = a.attr('title');
+            if (title == undefined || title == "") return;
+            a.data('title', title).removeAttr('title').hover(
+
+            function() {
+                var offset = a.offset();
+                $("<div id=\"anchortitlecontainer\"></div>").appendTo($("body")).html(title).css({
+                    top: offset.top - a.outerHeight() - 15,
+                    left: offset.left + a.outerWidth()/2 + 1
+                }).fadeIn(function() {
+                    var pop = $(this);
+                    setTimeout(function() {
+                        pop.remove();
+                    }, pop.text().length * 800);
+                });
+            }, function() {
+                $("#anchortitlecontainer").remove();
+            });
+        });
+    });
+</script>
+
+
+  </div>
+</body>
+</html>
